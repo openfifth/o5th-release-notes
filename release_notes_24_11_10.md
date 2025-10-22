@@ -1,5 +1,5 @@
 # RELEASE NOTES FOR KOHA 24.11.09
-29 Sep 2025
+22 Oct 2025
 
 Koha is the first free and open source software library automation
 package (ILS). Development is sponsored by libraries of varying types
@@ -19,7 +19,7 @@ Installation instructions can be found at:
 
 Koha 24.11.09 is a bugfix/maintenance release.
 
-It includes 17 enhancements, 23 bugfixes.
+It includes 16 enhancements, 26 bugfixes.
 
 **System requirements**
 
@@ -57,6 +57,7 @@ You can learn about the system components (like OS and database) needed for runn
 #### Other bugs fixed
 
 - [39787](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=39787) Sending EDI order from basket fails if only one Library EAN exists
+- [40593](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40593) Can't search all columns in Acquisitions Suggestions table
 
 ### Architecture, internals, and plumbing
 
@@ -106,12 +107,50 @@ You can learn about the system components (like OS and database) needed for runn
 - [32934](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=32934) SIP checkouts using "no block" flag have a calculated due rather than the specified due date
 - [40675](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40675) Carriage return in patron note message breaks SIP
 
+### Searching - Elasticsearch
+
+#### Other bugs fixed
+
+- [40980](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40980) Clicking a search facet without logging in may trigger a cud-login error
+
 ### Staff interface
 
 #### Other bugs fixed
 
 - [39080](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=39080) Table headers of holds to pull table are incorrect size on scroll
 - [40734](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40734) Libraries additional fields don't appear when creating a new library
+
+### Tools
+
+#### Other bugs fixed
+
+- [32950](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=32950) MARC modification template moving subfield can lose values for repeatable fields
+  >MARC modification templates now correctly preserve existing values when moving subfields within repeatable fields. Previously, moving subfields could cause data loss or duplication when the source subfield didn't exist in all instances of the repeatable field.
+  >
+  >**The problem:**
+  >
+  >When using a MARC modification template to move a subfield within a repeatable field (for example, moving 020$z to 020$a), if some 020 fields had existing $a values but no $z values, those existing $a values would be overwritten or lost.
+  >
+  >**Example scenario:**
+  >
+  >Given multiple 020 fields:
+  >- 020$a with existing ISBN
+  >- 020$a with another existing ISBN  
+  >- 020$z with cancelled ISBN (to be moved to $a)
+  >- 020$z with another cancelled ISBN (to be moved to $a)
+  >
+  >Previously, when moving 020$z to 020$a, the first two existing 020$a values would be replaced with values from the 020$z fields, causing data loss.
+  >
+  >**What's fixed:**
+  >
+  >- Existing subfield values in fields that don't contain the source subfield are now preserved
+  >- Source subfield values are only moved to the corresponding target positions in fields that actually contain the source subfield
+  >- The move operation correctly removes the source subfields after copying their values
+  >- Field order and other subfields are maintained correctly
+  >
+  >**For cataloguers:**
+  >
+  >MARC modification template "move" operations now work reliably with repeatable fields. When moving subfields, only the fields that contain the source subfield will be affected, and all other existing values in the repeatable fields will be preserved.
 
 ## Enhancements 
 
@@ -131,7 +170,6 @@ You can learn about the system components (like OS and database) needed for runn
   >
 
   **Sponsored by** *Open Fifth*
-- [40593](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40593) Can't search all columns in Acquisitions Suggestions table
 
 ### ERM
 
@@ -203,7 +241,7 @@ You can learn about the system components (like OS and database) needed for runn
 
 #### Enhancements
 
-- [40625](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40625) Cashup re-submissions on page reload
+- [40625](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40625) Prevent cashup re-submissions on page reload
 
 ### SIP2
 
@@ -248,7 +286,7 @@ As of the date of these release notes, the Koha manual is available in the follo
 - [English (USA)](https://koha-community.org/manual/24.11/en/html/)
 - [French](https://koha-community.org/manual/24.11/fr/html/) (75%)
 - [German](https://koha-community.org/manual/24.11/de/html/) (95%)
-- [Greek](https://koha-community.org/manual/24.11/el/html/) (97%)
+- [Greek](https://koha-community.org/manual/24.11/el/html/) (99%)
 - [Hindi](https://koha-community.org/manual/24.11/hi/html/) (67%)
 
 The Git repository for the Koha manual can be found at
@@ -274,8 +312,8 @@ interface are available in this release for the following languages:
 - Finnish (99%)
 - French (99%)
 - French (Canada) (99%)
-- German (99%)
-- Greek (67%)
+- German (100%)
+- Greek (68%)
 - Hindi (97%)
 - Italian (82%)
 - Norwegian Bokmål (74%)
@@ -379,19 +417,19 @@ new features in Koha 24.11.09
 We thank the following individuals who contributed patches to Koha 24.11.09
 <div style="column-count: 2;">
 
-- Pedro Amorim (13)
+- Pedro Amorim (14)
 - Alexander Blanchard (6)
 - Matt Blenkinsop (10)
 - Nick Clemens (4)
 - Jake Deery (7)
-- Jonathan Druart (4)
+- Jonathan Druart (5)
 - Katrin Fischer (1)
 - Lucas Gass (5)
 - Kyle M Hall (1)
 - Owen Leonard (1)
 - David Nind (1)
 - Jacob O'Mara (2)
-- Martin Renvoize (28)
+- Martin Renvoize (31)
 - Bernard Scaife (1)
 - Lisette Scheer (1)
 - Slava Shishkin (1)
@@ -408,9 +446,9 @@ patches to Koha 24.11.09
 - [ByWater Solutions](https://bywatersolutions.com) (11)
 - David Nind (1)
 - Independant Individuals (1)
-- Koha Community Developers (4)
+- Koha Community Developers (5)
 - [Koha-Suomi Oy](https://koha-suomi.fi) (1)
-- [Open Fifth](https://openfifth.co.uk/) (71)
+- [Open Fifth](https://openfifth.co.uk/) (75)
 </div>
 
 We also especially thank the following individuals who tested patches
@@ -437,6 +475,7 @@ for Koha
 - Eric Phetteplace (1)
 - Martin Renvoize (18)
 - Marcel de Rooy (4)
+- Bernard Scaife (2)
 - Lisette Scheer (8)
 - Fridolin Somers (7)
 - Baptiste Wojtkowski (9)
@@ -469,4 +508,4 @@ tracker at:
 He rau ringa e oti ai.
 (Many hands finish the work)
 
-Autogenerated release notes updated last on 29 Sep 2025 13:43:28.
+Autogenerated release notes updated last on 22 Oct 2025 14:27:56.
