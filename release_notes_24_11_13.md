@@ -1,5 +1,5 @@
 # OPEN FIFTH RELEASE NOTES FOR KOHA 24.11.12
-12 Feb 2026
+17 Mar 2026
 
 **Internal Release Notes - Open Fifth Backport Tracking**
 
@@ -15,7 +15,7 @@ For complete community release notes for Koha 24.11.12, please see:
 
 ## Summary
 
-This release includes 20 enhancements, 22 bugfixes.
+This release includes 21 enhancements, 24 bugfixes.
 
 
 ## Bugfixes
@@ -76,6 +76,11 @@ This release includes 20 enhancements, 22 bugfixes.
 
 ### Hold requests
 
+#### Critical bugs fixed
+
+- [41781](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=41781) Holds queue builder ( build_holds_queue.pl ) fails if HoldsQueueParallelLoopsCount is greater than 1
+  - **Backported from version(s):** 26.05.00,25.11.03
+
 #### Other bugs fixed
 
 - [40331](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40331) Extra transfer generated when transfer for hold cancelled due to checkin at incorrect library
@@ -86,8 +91,12 @@ This release includes 20 enhancements, 22 bugfixes.
 #### Other bugs fixed
 
 - [41237](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=41237) OPAC created requests ignore library selection, always default to patron's library
-  - **Backported from version(s):** 26.05.00
+  - **Backported from version(s):** 26.05.00,25.11.02,25.05.09,24.11.14
   >This fixes a bug on the OPAC create ILL request form which was always setting the library to the patron's library, ignoring the library selection made on the form.
+- [41861](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=41861) ILL request cost and price paid don't show if 0
+  >This updates how an ILL request cost and price paid are shown - if the amount is $0, then it is now shown. Previously, the fields were not shown if the amount was $0.
+  >
+  >(Note: 'Cost' is not editable in the user interface, but the backend used may set the value. 'Price paid' is editable through the 'Edit request' action)
 
 ### OPAC
 
@@ -213,7 +222,7 @@ This release includes 20 enhancements, 22 bugfixes.
 #### Enhancements
 
 - [40769](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40769) Highlight hold fees when placing a hold from the staff interface
-  - **Backported from version(s):** 26.05.00
+  - **Backported from version(s):** 26.05.00,25.11.03
   >This enhancement adds hold fee information display in the staff interface's hold
   >request interface, bringing it to feature parity with the OPAC.
   > 
@@ -235,6 +244,8 @@ This release includes 20 enhancements, 22 bugfixes.
   **Sponsored by** *NHS England (National Health Service England)*
 - [40012](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40012) Standard form missing publisher for journal articles
   - **Backported from version(s):** 25.11.00
+- [40105](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40105) Patrons cannot add notes when creating an ILL
+  - **Backported from version(s):** 26.05.00
 - [40262](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40262) ILL - Save the fact that copyright clearance has been confirmed by the patron
   - **Backported from version(s):** 25.11.00
   >This enhancement to copyright clearance for interlibrary loan requests:
@@ -255,6 +266,7 @@ This release includes 20 enhancements, 22 bugfixes.
 #### Enhancements
 
 - [39698](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=39698) Add option to expand responsive datatable rows by default
+  - **Backported from version(s):** 26.05.00
   >This enhancement lets you control the default responsiveness of OPAC tables, such as OPAC search history. New system preference 'OPACTableColExpandedByDefault' controls the default behavor. Tables are collapsed by default with a '+' to expand, and when expanded a '-' is visible to collapse. (This enhancement is a result of recommendations from a recent accessibility audit.)
   >
   >** Sponsored by: Open Fifth **
@@ -345,7 +357,7 @@ new features in this release:
 Contributors to this release:
 <div style="column-count: 2;">
 
-- Pedro Amorim (31)
+- Pedro Amorim (33)
 - Tomás Cohen Arazi (2)
 - Alexander Blanchard (5)
 - Matt Blenkinsop (14)
@@ -354,10 +366,11 @@ Contributors to this release:
 - Jonathan Druart (3)
 - Katrin Fischer (1)
 - Lucas Gass (3)
-- Kyle M Hall (3)
+- Kyle M Hall (4)
 - David Nind (1)
 - Jacob O'Mara (2)
-- Martin Renvoize (31)
+- Eric Phetteplace (1)
+- Martin Renvoize (33)
 - Lisette Scheer (1)
 - Slava Shishkin (1)
 - Lari Strand (1)
@@ -368,42 +381,43 @@ Contributing organizations:
 <div style="column-count: 2;">
 
 - [Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)](https://bsz-bw.de) (1)
-- [ByWater Solutions](https://bywatersolutions.com) (14)
+- [ByWater Solutions](https://bywatersolutions.com) (15)
 - David Nind (1)
-- Independant Individuals (1)
+- Independant Individuals (2)
 - Koha Community Developers (3)
 - [Koha-Suomi Oy](https://koha-suomi.fi) (1)
-- [OpenFifth](https://openfifth.co.uk) (93)
+- [OpenFifth](https://openfifth.co.uk) (97)
 - [Theke Solutions](https://theke.io) (2)
 </div>
 
 Testers and sign-offs:
 <div style="column-count: 2;">
 
-- Pedro Amorim (1)
+- Pedro Amorim (2)
 - Emmanuel Bétemps (2)
 - Trevor Diamond (4)
 - Jonathan Druart (1)
 - Laura Escamilla (3)
 - Katrin Fischer (11)
 - Brendan Gallagher (4)
-- Lucas Gass (5)
+- Lucas Gass (6)
 - Stephen Graham (2)
 - Kyle M Hall (10)
 - Tomas Jiglind (1)
-- Brendan Lawlor (1)
+- Brendan Lawlor (2)
 - Christine Lee (1)
 - Owen Leonard (6)
-- David Nind (19)
+- David Nind (20)
 - Martin Renvoize (26)
-- Marcel de Rooy (4)
-- Lisette Scheer (8)
+- Marcel de Rooy (5)
+- Lisette Scheer (10)
 - Fridolin Somers (7)
+- Edith Speller (1)
 - Baptiste Wojtkowski (9)
 </div>
 
 ---
 
-*Generated by Open Fifth release tools on 12 Feb 2026 10:12:38*
+*Generated by Open Fifth release tools on 17 Mar 2026 15:46:05*
 
 *These are internal tracking notes and may include patches not yet available in community releases.*
