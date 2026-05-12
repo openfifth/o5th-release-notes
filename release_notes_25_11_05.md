@@ -1,5 +1,5 @@
 # OPEN FIFTH RELEASE NOTES FOR KOHA 25.11.04
-29 Apr 2026
+12 May 2026
 
 **Internal Release Notes - Open Fifth Backport Tracking**
 
@@ -15,7 +15,7 @@ For complete community release notes for Koha 25.11.04, please see:
 
 ## Summary
 
-This release includes 1 new features, 30 enhancements, 4 bugfixes.
+This release includes 2 new features, 32 enhancements, 7 bugfixes.
 
 
 ## Bugfixes
@@ -25,6 +25,13 @@ This release includes 1 new features, 30 enhancements, 4 bugfixes.
 #### Critical bugs fixed
 
 - [42010](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=42010) Include escaping when using PO numbers in EDI acquisitions
+  - **Backported from version(s):** 26.05.00
+
+### Cataloging
+
+#### Other bugs fixed
+
+- [42221](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=42221) autoBarcode set to incremental EAN-13 barcodes do not increment
   - **Backported from version(s):** 26.05.00
 
 ### Circulation
@@ -40,11 +47,22 @@ This release includes 1 new features, 30 enhancements, 4 bugfixes.
 
 #### Other bugs fixed
 
+- [41247](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=41247) ILL batches modal does not reset correctly
+  - **Backported from version(s):** 26.05.00
+  >The "New ILL requests batch" modal was not resetting its state correctly after being closed, causing unexpected behaviour when it was reopened.
+  >
+  >The modal now resets its internal state fully when closed, so that each new batch creation session starts from a clean initial state regardless of how far through the workflow the previous session progressed.
 - [41861](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=41861) ILL request cost and price paid don't show if 0
   - **Backported from version(s):** 26.05.00
   >This updates how an ILL request cost and price paid are shown - if the amount is $0, then it is now shown. Previously, the fields were not shown if the amount was $0.
   >
   >(Note: 'Cost' is not editable in the user interface, but the backend used may set the value. 'Price paid' is editable through the 'Edit request' action)
+
+### Point of Sale
+
+#### Critical bugs fixed
+
+- [41819](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=41819) Refunds via the Cash registers page should not result in PAYOUTS if the transaction type is 'Account Credit'
 
 ### SIP2
 
@@ -134,6 +152,7 @@ This release includes 1 new features, 30 enhancements, 4 bugfixes.
 #### Enhancements
 
 - [37966](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=37966) When overriding a hold to renew a book the due date becomes "now" if not specified
+  - **Backported from version(s):** 26.05.00
 - [38924](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=38924) Introduce an organization level loan 'Quota' system for Koha
 - [39802](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=39802) Add CircControl equivalent system preference for lost item fees and actions
   - **Backported from version(s):** 26.05.00
@@ -147,6 +166,21 @@ This release includes 1 new features, 30 enhancements, 4 bugfixes.
   >Currently this is only used by the longoverdue cronjob. Selecting "library you are logged in at" will cause the cronjob to cancel as there is no branch - this mimics current behavior, but is more verbose.
 
   **Sponsored by** *MAIN Library Alliance*
+
+### ERM
+
+#### New features
+
+- [39320](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=39320) Create a 'landing page' for ERM
+  - **Backported from version(s):** 26.05.00
+  >This adds a customizable landing page to the ERM module. Staff members can remove, add, and reorganise landing page "widgets" to customize the landing page layout to suit their needs (all widgets are shown by default):
+  >
+  >- Counts: shows the number of ERM related resources such as agreements, licenses, local packages, local titles, etc.
+  >- Licenses needing action: shows licenses that need action - it filters licenses by status and end date (this is configurable from the settings menu item for the widget). 
+  >- Run eUsage report: lets you select a saved eUsage report to run.
+  >- Latest SUSHI Counter jobs: shows the latest SUSHI Counter background jobs.
+
+  **Sponsored by** *UK Health Security Agency*
 
 ### Hold requests
 
@@ -176,11 +210,16 @@ This release includes 1 new features, 30 enhancements, 4 bugfixes.
 
 #### Enhancements
 
+- [39934](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=39934) Standard backend shows attributes from previously "migrated from" backends
 - [39941](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=39941) Adding a patron to an unauthenticated request should change the request's status to 'NEW'
 - [39944](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=39944) Metadata should be trimmed before creating an ILL request
 
   **Sponsored by** *NHS England (National Health Service England)*
+- [40504](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=40504) ILL requests should have ability to assign staff to manage
+  - **Backported from version(s):** 26.05.00
+  >This enhancement adds a "Managed by" feature for Interlibrary Loan (ILL) requests, mirroring existing functionality in purchase suggestions. This is particularly beneficial for large consortia managing high volumes of requests.
 - [41111](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=41111) AutoILLBackendPriority should consider a 'yellow' stage
+- [41249](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=41249) ILL batches should be compatible with AutoILLBackendPriority
 - [41536](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=41536) ILL "Confirm Request" button fails to stand out as a primary action
   - **Backported from version(s):** 26.05.00
 
@@ -212,6 +251,7 @@ This release includes 1 new features, 30 enhancements, 4 bugfixes.
 #### Enhancements
 
 - [26355](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=26355) Allow patron account renewals through the OPAC
+  - **Backported from version(s):** 26.05.00
 - [41749](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=41749) Add patron consent status display to staff patron detail page
   - **Backported from version(s):** 26.05.00
   >Adds a "Consents" section to the staff patron detail page. It shows the patron's privacy consent status (when PrivacyPolicyConsent
@@ -227,6 +267,7 @@ This release includes 1 new features, 30 enhancements, 4 bugfixes.
 #### Enhancements
 
 - [37671](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=37671) Can't print receipt for refund from cash register transaction history
+  - **Backported from version(s):** 26.05.00
   >This enhancements adds a new PAYOUT notice template to be use for receipt printing of refund transactions.
   >
   >We then use that template from both the cash management registers page and the patron account pages.
@@ -236,9 +277,9 @@ This release includes 1 new features, 30 enhancements, 4 bugfixes.
 
   **Sponsored by** *OpenFifth*
 - [41751](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=41751) Cash register transaction history returns 403 for users with only anonymous_refund permission
+  - **Backported from version(s):** 26.05.00
 
   **Sponsored by** *OpenFifth*
-- [41819](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=41819) Refunds via the Cash registers page should not result in PAYOUTS if the transaction type is 'Account Credit'
 
 ### SIP2
 
@@ -251,6 +292,11 @@ This release includes 1 new features, 30 enhancements, 4 bugfixes.
 
 Commits in this range that don't reference a Bugzilla bug number:
 
+- LOCAL: Make 41649 atomicupdate idempotent _(Pedro Amorim)_
+- LOCAL: Update yarn.lock _(Pedro Amorim)_
+- LOCAL: Fix ILL/Request.t number of tests _(Pedro Amorim)_
+- LOCAL: Add after_edi_cron plugin hook to edi_cron.pl _(Martin Renvoize)_
+- LOCAL: O5TH follow-up - Fix unit test failures _(Martin Renvoize)_
 - LOCAL: Replaced package crontab files with empties _(Jake Deery)_
 - [LOCAL] Remove check-atomic-updates test file _(Pedro Amorim)_
 - LOCAL: Add POD stubs for BorrowerPasswordHistory koha_*_class subs _(Martin Renvoize)_
@@ -322,50 +368,63 @@ new features in this release:
 - NHS England (National Health Service England)
 - [OpenFifth](https://openfifth.co.uk)
 - [Royal Borough of Kensington and Chelsea](https://www.rbkc.gov.uk)
+- UK Health Security Agency
 - [Westminster City Council](https://www.westminster.gov.uk)
 </div>
 
 Contributors to this release:
 <div style="column-count: 2;">
 
-- Pedro Amorim (19)
-- Matt Blenkinsop (10)
+- Pedro Amorim (83)
+- Tomás Cohen Arazi (1)
+- Matt Blenkinsop (11)
 - Colin Campbell (1)
 - Nick Clemens (4)
 - Jake Deery (3)
+- Jonathan Druart (5)
 - Lucas Gass (1)
 - Michael Hafen (2)
 - Kyle M Hall (6)
 - Jacob O'Mara (29)
-- Martin Renvoize (148)
+- Martin Renvoize (152)
+- Lisette Scheer (1)
 </div>
 
 Contributing organizations:
 <div style="column-count: 2;">
 
-- [ByWater Solutions](https://bywatersolutions.com) (11)
+- [ByWater Solutions](https://bywatersolutions.com) (12)
 - Independant Individuals (14)
-- [OpenFifth](https://openfifth.co.uk) (198)
+- Koha Community Developers (5)
+- [OpenFifth](https://openfifth.co.uk) (267)
+- [Theke Solutions](https://theke.io) (1)
 </div>
 
 Testers and sign-offs:
 <div style="column-count: 2;">
 
-- Tomás Cohen Arazi (6)
+- Pedro Amorim (3)
+- Tomás Cohen Arazi (37)
 - Christopher Brannon (1)
 - Trevor Diamond (4)
+- Jonathan Druart (36)
 - Marion Durand (1)
+- Jeremy Evans (21)
 - Roger fredricks (1)
+- Andrew Fuerste-Henry (1)
 - Lucas Gass (1)
-- David Nind (3)
+- David Nind (8)
 - Martin Renvoize (7)
-- Marcel de Rooy (1)
+- Marcel de Rooy (3)
+- Caroline Cyr La Rose (1)
+- Lisette Scheer (12)
+- Edith Speller (10)
 - Jackie Usher (7)
 - Anneli Österman (1)
 </div>
 
 ---
 
-*Generated by Open Fifth release tools on 29 Apr 2026 11:24:26*
+*Generated by Open Fifth release tools on 12 May 2026 09:16:12*
 
 *These are internal tracking notes and may include patches not yet available in community releases.*
